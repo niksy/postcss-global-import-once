@@ -1,0 +1,44 @@
+{
+  "name": "postcss-global-import-once",
+  "version": "0.0.0",
+  "description": "PostCSS plugin to set import statements once globally.",
+  "main": "index.js",
+  "author": "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com)",
+  "license": "MIT",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "eslint '{index,test/**/*}.js' && nyc mocha 'test/**/*.js' && nyc check-coverage"
+  },
+  "dependencies": {
+    "minimatch": "^3.0.3",
+    "postcss": "^5.2.5",
+    "postcss-value-parser": "^3.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.1.1",
+    "eslint-config-niksy": "^3.0.1",
+    "mocha": "^3.1.2",
+    "nyc": "^8.4.0",
+    "pify": "^2.3.0"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "keywords": [
+    "global",
+    "import",
+    "once",
+    "postcss",
+    "postcss-plugin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niksy/postcss-global-import-once.git"
+  },
+  "bugs": {
+    "url": "https://github.com/niksy/postcss-global-import-once/issues"
+  },
+  "homepage": "https://github.com/niksy/postcss-global-import-once#readme"
+}
