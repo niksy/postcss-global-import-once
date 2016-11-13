@@ -1,6 +1,6 @@
 {
   "name": "postcss-global-import-once",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "PostCSS plugin to set import statements once globally.",
   "main": "index.js",
   "author": "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com)",
