@@ -10,7 +10,7 @@ This plugin does not inline imports. For that functionality, use
 ## Install
 
 ```sh
-npm install postcss-global-import-once --save
+npm install postcss postcss-global-import-once --save
 ```
 
 ## Usage
@@ -18,27 +18,30 @@ npm install postcss-global-import-once --save
 Given following configuration:
 
 ```js
-const postcss = require('postcss');
-const globalAtImportOnce = require('postcss-global-import-once');
+import postcss from 'postcss';
+import globalAtImportOnce from 'postcss-global-import-once';
+import { promises as fs } from 'fs';
 
-['./input/index.css', './input/page.css'].forEach((file) => {
-	const style = fs.readFileSync(file, 'utf8');
+(async () => {
+	const results = await Promise.all(
+		['./input/index.css', './input/page.css'].map(async (file) => {
+			const style = await fs.readFile(file, 'utf8');
 
-	postcss([
-		globalAtImportOnce([
-			{
-				file: '**/index.css',
-				imports: ['archie.css', 'cooper.css']
-			}
-		])
-	])
-		.process(style, {
-			from: file
+			return postcss([
+				globalAtImportOnce([
+					{
+						file: '**/index.css',
+						imports: ['archie.css', 'cooper.css']
+					}
+				])
+			]).process(style, {
+				from: file
+			});
 		})
-		.then((res) => {
-			// …
-		});
-});
+	);
+
+	// …
+})();
 ```
 
 Following input styles:

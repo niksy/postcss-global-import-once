@@ -1,16 +1,13 @@
-'use strict';
+import valueParser from 'postcss-value-parser';
+import minimatch from 'minimatch';
 
-const postcss = require('postcss');
-const valueParser = require('postcss-value-parser');
-const minimatch = require('minimatch');
-
-function resolvePath ( str ) {
-	const path = valueParser(str);
+function resolvePath(string) {
+	const path = valueParser(string);
 	let value;
-	valueParser.walk(path.nodes, ( node ) => {
-		if ( node.type === 'string' && node.sourceIndex === 0 ) {
+	valueParser.walk(path.nodes, (node) => {
+		if (node.type === 'string' && node.sourceIndex === 0) {
 			value = node.value;
-		} else if ( node.type === 'function' && node.value === 'url' ) {
+		} else if (node.type === 'function' && node.value === 'url') {
 			value = node.nodes[0].value;
 		}
 		return false;
@@ -18,37 +15,41 @@ function resolvePath ( str ) {
 	return value;
 }
 
-module.exports = postcss.plugin('postcss-global-import-once', ( opts ) => {
+export default (options) => {
+	return {
+		postcssPlugin: 'postcss-global-import-once',
+		Once: (css, { result }) => {
+			const file = css.source.input.file;
+			const rules = [];
 
-	return ( css, result ) => {
+			if (typeof file === 'undefined') {
+				result.warn(
+					'Expected `from` option to be defined, otherwise @import statements can’t be processed'
+				);
+			} else {
+				css.walkAtRules('import', (rule) => {
+					const path = resolvePath(rule.params);
+					const shouldExclude = options.reduce((previous, opt) => {
+						if (
+							!minimatch(file, opt.file) &&
+							opt.imports.indexOf(path) !== -1
+						) {
+							return previous + 1;
+						}
+						return previous;
+					}, 0);
 
-		const file = css.source.input.file;
-		const rules = [];
-
-		if ( typeof file === 'undefined' ) {
-			result.warn('Expected `from` option to be defined, otherwise @import statements can’t be processed');
-		} else {
-			css.walkAtRules('import', ( rule ) => {
-
-				const path = resolvePath(rule.params);
-				const shouldExclude = opts.reduce(( prev, opt ) => {
-					if ( !minimatch(file, opt.file) && opt.imports.indexOf(path) !== -1 ) {
-						return prev + 1;
+					if (shouldExclude) {
+						rules.push(rule);
 					}
-					return prev;
-				}, 0);
+				});
 
-				if ( shouldExclude ) {
-					rules.push(rule);
-				}
-
-			});
-
-			rules.forEach(( rule ) => {
-				rule.remove();
-			});
+				rules.forEach((rule) => {
+					rule.remove();
+				});
+			}
 		}
-
 	};
+};
 
-});
+export const postcss = true;
