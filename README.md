@@ -4,7 +4,8 @@
 
 PostCSS plugin to set import statements once globally.
 
-This plugin does not inline imports. For that functionality, use [postcss-import][postcss-import] after this plugin.
+This plugin does not inline imports. For that functionality, use
+[postcss-import][postcss-import] after this plugin.
 
 ## Install
 
@@ -20,28 +21,23 @@ Given following configuration:
 const postcss = require('postcss');
 const globalAtImportOnce = require('postcss-global-import-once');
 
-['./input/index.css', './input/page.css'].forEach(( file ) => {
-
+['./input/index.css', './input/page.css'].forEach((file) => {
 	const style = fs.readFileSync(file, 'utf8');
 
 	postcss([
 		globalAtImportOnce([
 			{
 				file: '**/index.css',
-				imports: [
-					'archie.css',
-					'cooper.css'
-				]
+				imports: ['archie.css', 'cooper.css']
 			}
 		])
 	])
 		.process(style, {
 			from: file
 		})
-		.then(( res ) => {
+		.then((res) => {
 			// …
-		})
-
+		});
 });
 ```
 
@@ -55,7 +51,7 @@ Following input styles:
 @import url('cooper.css');
 
 body {
-	color:red;
+	color: red;
 }
 ```
 
@@ -67,7 +63,7 @@ body {
 @import url('cooper.css');
 
 body {
-	color:red;
+	color: red;
 }
 ```
 
@@ -81,7 +77,7 @@ Will be treated as:
 @import url('cooper.css');
 
 body {
-	color:red;
+	color: red;
 }
 ```
 
@@ -91,7 +87,7 @@ body {
 @import url('sophie.css');
 
 body {
-	color:red;
+	color: red;
 }
 ```
 
@@ -113,19 +109,26 @@ Each object definitions contains following properties:
 
 Type: `String`
 
-Name of the file or [minimatch][minimatch] expression which is considered as global entry point.
+Name of the file or [minimatch][minimatch] expression which is considered as
+global entry point.
 
 #### imports
 
 Type: `Array`
 
-List of imports as strings which are considered to be global imports. Only exact names defined inside files are considered, so relative filepaths which map to certain absolute filepaths are treated as different filepaths.
+List of imports as strings which are considered to be global imports. Only exact
+names defined inside files are considered, so relative filepaths which map to
+certain absolute filepaths are treated as different filepaths.
 
 ## License
 
 MIT © [Ivan Nikolić](http://ivannikolic.com)
 
-[ci]: https://travis-ci.org/niksy/postcss-global-import-once
-[ci-img]: https://img.shields.io/travis/niksy/postcss-global-import-once.svg
+<!-- prettier-ignore-start -->
+
+[ci]: https://travis-ci.com/niksy/postcss-global-import-once
+[ci-img]: https://travis-ci.com/niksy/postcss-global-import-once.svg?branch=master
 [postcss-import]: https://github.com/postcss/postcss-import
 [minimatch]: https://github.com/isaacs/minimatch
+
+<!-- prettier-ignore-end -->
