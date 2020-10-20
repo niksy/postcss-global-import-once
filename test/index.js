@@ -79,7 +79,11 @@ it('should produce index.css with only "archie.css" and "cooper.css" imports and
 });
 
 it('should throw warning if input file is not defined', async function() {
-	const res = await postcss([fn()]).process('a { color: red; }');
+	/* eslint-disable no-undefined */
+	const res = await postcss([fn()]).process('a { color: red; }', {
+		from: undefined
+	});
+	/* eslint-enable */
 	const warnings = res.warnings();
 	assert.equal(warnings.length, 1);
 	assert.equal(

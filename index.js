@@ -15,7 +15,7 @@ function resolvePath(string) {
 	return value;
 }
 
-export default (options) => {
+const plugin = (options) => {
 	return {
 		postcssPlugin: 'postcss-global-import-once',
 		Once: (css, { result }) => {
@@ -51,5 +51,6 @@ export default (options) => {
 		}
 	};
 };
+plugin.postcss = true;
 
-export const postcss = true;
+export default plugin;
