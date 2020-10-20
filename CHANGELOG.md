@@ -2,6 +2,8 @@
 
 ## [Unreleased][]
 
+## [3.0.0][] - 2020-10-20
+
 ### Changed
 
 -   Properly export plugin function
@@ -16,3 +18,6 @@
 [unreleased]:
 	https://github.com/niksy/postcss-global-import-once/compare/v2.0.0...HEAD
 [2.0.0]: https://github.com/niksy/postcss-global-import-once/tree/v2.0.0
+[unreleased]:
+	https://github.com/niksy/postcss-global-import-once/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/niksy/postcss-global-import-once/tree/v3.0.0
