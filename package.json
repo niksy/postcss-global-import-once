@@ -1,6 +1,6 @@
 {
   "name": "postcss-global-import-once",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "PostCSS plugin to set import statements once globally.",
   "main": "index.cjs.js",
   "module": "index.esm.js",
