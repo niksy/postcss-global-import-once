@@ -2,6 +2,10 @@
 
 ## [Unreleased][]
 
+### Changed
+
+-   Upgrade dependencies
+
 ## [3.0.0][] - 2020-10-20
 
 ### Changed
